@@ -1,0 +1,25 @@
+<odoo>
+
+   <!-- REPORT DEFINTION -->
+    <record id="report_action_id" model="ir.actions.report">
+        <field name="name">Print Report</field>
+        <field name="model">wizard.print.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_okplast.report_stat_stock</field>
+<!--        <field name="file">your_report.pdf</field>-->
+        <field name="print_report_name">'Report_' + object.start_date.strftime('%Y%m%d') + '.pdf'</field>
+    </record>
+
+    <!-- REPORT TEMPLATE -->
+
+    <template id="report_stat_stock">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Report from <t t-esc="doc.start_date"/> to <t t-esc="doc.end_date"/></h2>
+                    <p>This is your report content.</p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

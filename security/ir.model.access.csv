@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_okplast_stock_okplast,stock_okplast.stock_okplast,model_stock_okplast_stock_okplast,base.group_user,1,1,1,1
