@@ -1,21 +1,27 @@
 <odoo>
   <data>
-  <menuitem id="menu_inventory"
-                name="Inventaire"
-                parent="stock.menu_stock_root"
-                sequence="10"/>
+<!--  <menuitem id="menu_inventory"-->
+<!--                name="Inventaire"-->
+<!--                parent="stock.menu_stock_root"-->
+<!--                sequence="10"/>-->
+
 
 
     <menuitem id="menu_low_stock"
-              name="Articles en stock faible"
-              parent="menu_inventory"
+              name="Articles en Stock faible"
+              parent="stock.menu_stock_inventory_control"
               action="action_low_stock_products"/>
+
+    <menuitem id="menu_good_stock"
+              name="Articles en Stock Suffissant"
+              parent="stock.menu_stock_inventory_control"
+              action="action_good_stock_products"/>
 
 
 
     <menuitem id="menu_wizard_print_report"
-              name="Imprimer le Rapport"
-               parent="stock.menu_stock_root"
+              name="Rapports"
+              parent="stock.menu_stock_root"
               action="action_wizard_print_report"/>
 
 

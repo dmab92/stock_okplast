@@ -26,6 +26,19 @@
         <field name="domain">[('is_below_threshold', '=', True)]</field>
     </record>
 
+      <record id="action_good_stock_products" model="ir.actions.act_window">
+        <field name="name">Articles avec Stock Suffisant</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree</field>
+<!--        <field name="domain">[('qty_available', '&lt;=',stock_threshold)]</field>-->
+
+        <field name="domain">[('is_below_threshold', '=', False)]</field>
+    </record>
+
+
+
+
+
        <!-- PRODUCT STOCK ALERT  -->
 
       <record id="view_product_form_inherit" model="ir.ui.view">
@@ -33,18 +46,72 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
+
+<!--            <xpath expr="//button[@name='224']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//button[@name='action_open_label_layout']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Remove the existing category field -->
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
+<!--            <xpath expr="//field[@name='barcode']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='product_tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide the Inventory tab -->
+            <xpath expr="//page[@name='inventory']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
             <xpath expr="//field[@name='sale_ok']" position="before">
-                <group string="Stock Information">
-                    <field name="stock_threshold" />
+                <group>
+                    <group string="Informations sur la Piece">
+                        <field name="list_price"/>
+                        <field name="categ_id"/>
+                        <field name="machine_id"/>
+                        <field name="stock_threshold" />
+
+                    </group>
+                     <group string="Description">
+<!--                         <field name="type"/>-->
+                        <field name="diamter" />
+                        <field name="power" />
+                         <field name="tension"/>
+                        <field name="other_dim" />
+                    </group>
                 </group>
             </xpath>
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="string">Prix d'Achat</attribute>
+            </xpath>
+
         </field>
     </record>
 
 
         <!-- Change "Réceptions" to "Entrée en Stock" -->
         <record id="stock.in_picking" model="ir.ui.menu">
-            <field name="name">Entree en Stock</field>
+            <field name="name">Entrée en Stock</field>
         </record>
 
         <!-- Change "Livraisons" to "Sortie de Stock" -->
@@ -57,6 +124,57 @@
         <record id="stock.int_picking" model="ir.ui.menu">
             <field name="name">Transfert entre Magasin</field>
         </record>
+
+
+
+        <!-- Insert Category in stock picking vue -->
+      <record id="view_picking_form_inherit_partner_category" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.partner.category</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='partner_id']" position="after">-->
+<!--                <field name="partner_category_id"/>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="usine_id"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="string">MACHINE</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="user_id" readony="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- Hide Button vue -->
+
+      <record id="view_picking_form_custom" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.custom</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <!-- Hide the cancel button -->
+            <xpath expr="//button[@name='action_open_label_type']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+<!--            <xpath expr="//button[@name='action_cancel']" position="attributes">-->
+<!--                <attribute name="groups">base.group_user</attribute>-->
+<!--            </xpath>-->
+
+        </field>
+    </record>
+
+
     </data>
 </odoo>
 
