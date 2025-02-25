@@ -11,6 +11,7 @@ class StockProduct(models.Model):
     power = fields.Char(string="Puisssance(KW)")
     tension = fields.Char(string="Tension")
     other_dim = fields.Char("Autres Dimensions")
+    intensit = fields.Char(string="Intensité")
     machine_id = fields.Many2one('res.partner', string="Machine")
 
 
@@ -29,7 +30,8 @@ class ProductTemplate(models.Model):
         default=1,
         help="Le seuil à ne pas dépasser pour déclencher un avertissement de stock faible."
     )
-    diamter = fields.Char(string="Diametre", )
+    diamter = fields.Char(string="Diametre" )
+    intensit = fields.Char(string="Intensité")
     power = fields.Char(string="Puisssance(KW)")
     other_dim = fields.Char("Autres Dimensions")
     tension = fields.Char(string="Tension")
@@ -48,19 +50,22 @@ class ProductTemplate(models.Model):
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    partner_category_id = fields.Many2one(
-        'res.partner.category',
-        string="Usine",
-        compute='_compute_partner_category',
-        store=True
-    )
+    # partner_category_id = fields.Many2many(
+    #     'res.partner.category',
+    #     string="Usine",
+    #     compute='_compute_partner_category',
+    #     store=True
+    # )
+    partner_id = fields.Many2one('res.partner', string="Machine", required=True)
     usine_id = fields.Many2one('stock.warehouse', string="Usine")
-
     user_id = fields.Many2one('res.users', string='Opération Realisé par',   readonly=1, default=lambda self: self.env.user)
 
+    # def _compute_usine(self):
+    #     for record in self:
+    #compute = '_compute_usine'
+            #record.usine_id = record.partner_id.usine_id if record.partner_id.usine_id else False
 
-
-    def _compute_partner_category(self):
-        for record in self:
-            record.partner_category_id = record.partner_id.category_id[:1] if record.partner_id.category_id else False
-
+# class ResPartner(models.Model):
+#     _inherit = 'res.partner'
+#
+#     usine_id = fields.Many2one('stock.warehouse', string="Usine")

@@ -97,6 +97,7 @@
                         <field name="diamter" />
                         <field name="power" />
                          <field name="tension"/>
+                         <field name="intensit"/>
                         <field name="other_dim" />
                     </group>
                 </group>
@@ -139,9 +140,9 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="usine_id"/>
             </xpath>
-            <xpath expr="//field[@name='partner_id']" position="attributes">
-                <attribute name="string">MACHINE</attribute>
-            </xpath>
+<!--            <xpath expr="//field[@name='partner_id']" position="attributes">-->
+<!--                <attribute name="string">MACHINE</attribute>-->
+<!--            </xpath>-->
 
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="user_id" readony="1"/>
@@ -173,6 +174,42 @@
 
         </field>
     </record>
+
+      <!--Change the label of partner in stock picking  form view -->
+
+      <record id="view_picking_form_inherit_label" model="ir.ui.view">
+        <field name="name">stock.picking.form.machine.label</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="string">Machine</attribute>
+            </xpath>
+        </field>
+    </record>
+
+<!--      <record id="view_main_partner_form_inherit_usine" model="ir.ui.view">-->
+<!--        <field name="name">res.partner.form.usine</field>-->
+<!--        <field name="model">res.partner</field>-->
+<!--        <field name="inherit_id" ref="base.main_partner"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='name']" position="after">-->
+<!--&lt;!&ndash;                <field name="usine_id"/>&ndash;&gt;-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+        <!--Change the label of partner in stock picking  form view -->
+<!--      <record id="view_picking_tree_inherit_machine_label" model="ir.ui.view">-->
+<!--        <field name="name">stock.picking.tree.machine.label</field>-->
+<!--        <field name="model">stock.picking</field>-->
+<!--        <field name="inherit_id" ref="stock.view_picking_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='partner_id']" position="attributes">-->
+<!--                <attribute name="string">Machine</attribute>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
 
 
     </data>

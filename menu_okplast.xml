@@ -8,12 +8,12 @@
 
 
     <menuitem id="menu_low_stock"
-              name="Articles en Stock faible"
+              name="Pièces en Stock faible"
               parent="stock.menu_stock_inventory_control"
               action="action_low_stock_products"/>
 
     <menuitem id="menu_good_stock"
-              name="Articles en Stock Suffissant"
+              name="Pièces en Stock Suffissant"
               parent="stock.menu_stock_inventory_control"
               action="action_good_stock_products"/>
 
