@@ -2,6 +2,17 @@
 
 from odoo import models, fields, api
 
+
+# class ResPartner(models.Model):
+#     _inherit = 'res.partner'
+#
+#     usine_id = fields.Many2one(
+#         'stock.warehouse',
+#         string='Usine de Location',
+#         help="Warehouse associated with this partner."
+#     )
+
+
 class StockProduct(models.Model):
     _inherit = 'product.product'
 
@@ -9,10 +20,12 @@ class StockProduct(models.Model):
     diamter = fields.Char(string="Diametre")
     # type = fields.Char(string="Type")
     power = fields.Char(string="Puisssance(KW)")
-    tension = fields.Char(string="Tension")
+    tension = fields.Char(string="Tension(V)")
     other_dim = fields.Char("Autres Dimensions")
-    intensit = fields.Char(string="Intensité")
+    intensit = fields.Char(string="Intensité(A)")
     machine_id = fields.Many2one('res.partner', string="Machine")
+    type_piece = fields.Char(string="Type")
+    cat_piece = fields.Char(string="Categorie")
 
 
     @api.model
@@ -31,6 +44,8 @@ class ProductTemplate(models.Model):
         help="Le seuil à ne pas dépasser pour déclencher un avertissement de stock faible."
     )
     diamter = fields.Char(string="Diametre" )
+    type_piece = fields.Char(string="Type")
+    cat_piece = fields.Char(string="Categorie")
     intensit = fields.Char(string="Intensité")
     power = fields.Char(string="Puisssance(KW)")
     other_dim = fields.Char("Autres Dimensions")
@@ -47,25 +62,24 @@ class ProductTemplate(models.Model):
 
 
 
+
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    # partner_category_id = fields.Many2many(
-    #     'res.partner.category',
-    #     string="Usine",
-    #     compute='_compute_partner_category',
-    #     store=True
-    # )
+
     partner_id = fields.Many2one('res.partner', string="Machine", required=True)
     usine_id = fields.Many2one('stock.warehouse', string="Usine")
+    tech_id = fields.Many2one('res.users', string="Technicien(e)")
     user_id = fields.Many2one('res.users', string='Opération Realisé par',   readonly=1, default=lambda self: self.env.user)
 
     # def _compute_usine(self):
     #     for record in self:
-    #compute = '_compute_usine'
-            #record.usine_id = record.partner_id.usine_id if record.partner_id.usine_id else False
+    # compute = '_compute_usine'
+    #         record.usine_id = record.partner_id.usine_id if record.partner_id.usine_id else False
 
-# class ResPartner(models.Model):
-#     _inherit = 'res.partner'
-#
-#     usine_id = fields.Many2one('stock.warehouse', string="Usine")
+    # @api.onchange('partner_id')
+    # def _onchange_partner_id_id(self):
+    #     for rec in self:
+    #         if rec.apprenant_id:
+    #             rec.usine_id = rec.partner_id.usine_id and rec.partner_id.usine_id.id
+

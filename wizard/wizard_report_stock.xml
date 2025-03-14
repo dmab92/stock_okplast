@@ -5,14 +5,14 @@
         <field name="arch" type="xml">
             <form string="Print Report Wizard">
                 <group>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
-                    <field name="type" require="1"/>
-                    <field name="machine_ids" widget="many2many_tags" invisible="type == 'usine'"
-                    />
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="filter_type" require="1"/>
+                    <field name="machine_ids" widget="many2many_tags" invisible="filter_type == 'warehouse'" />
                     <field name="usine_ids" widget="many2many_tags"
-                           invisible="type == 'machine'"
+                           invisible="filter_type == 'partner'"
                           />
+                    <field name="report_type"/>
                 </group>
                 <footer>
                     <button name="print_report" string="Print Report" type="object" class="btn-primary"/>

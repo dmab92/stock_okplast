@@ -25,5 +25,13 @@
               action="action_wizard_print_report"/>
 
 
+
+
+<!--        <menuitem id="menu_stock_outgoing"-->
+<!--                  name="Details des Sorties de Stock"-->
+<!--                  parent="stock.menu_stock_root"-->
+<!--                  action="action_outgoing_stock_move"/>-->
+
+
   </data>
 </odoo>
