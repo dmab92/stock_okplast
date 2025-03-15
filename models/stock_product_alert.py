@@ -2,17 +2,6 @@
 
 from odoo import models, fields, api
 
-
-# class ResPartner(models.Model):
-#     _inherit = 'res.partner'
-#
-#     usine_id = fields.Many2one(
-#         'stock.warehouse',
-#         string='Usine de Location',
-#         help="Warehouse associated with this partner."
-#     )
-
-
 class StockProduct(models.Model):
     _inherit = 'product.product'
 
@@ -68,8 +57,8 @@ class StockPicking(models.Model):
 
 
     partner_id = fields.Many2one('res.partner', string="Machine", required=True)
-    usine_id = fields.Many2one('stock.warehouse', string="Usine")
-    tech_id = fields.Many2one('res.users', string="Technicien(e)")
+    usine_id = fields.Many2one('stock.warehouse', string="Usine", required=True)
+    tech_id = fields.Many2one('res.users', string="Technicien(e)",required=True)
     user_id = fields.Many2one('res.users', string='Opération Realisé par',   readonly=1, default=lambda self: self.env.user)
 
     # def _compute_usine(self):

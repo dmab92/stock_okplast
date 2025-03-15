@@ -8,10 +8,11 @@
                     <field name="date_start"/>
                     <field name="date_end"/>
                     <field name="filter_type" require="1"/>
-                    <field name="machine_ids" widget="many2many_tags" invisible="filter_type == 'warehouse'" />
+                    <field name="machine_ids" widget="many2many_tags" invisible="filter_type != 'partner'" />
                     <field name="usine_ids" widget="many2many_tags"
-                           invisible="filter_type == 'partner'"
+                           invisible="filter_type != 'warehouse'"
                           />
+                    <field name="product_ids" widget="many2many_tags" invisible="filter_type != 'product'"/>
                     <field name="report_type"/>
                 </group>
                 <footer>
