@@ -17,23 +17,23 @@
              <t t-call="web.external_layout">
                  <div class="text-center" style="margin-top: 20px;">
                 <!-- Company Logo -->
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <img t-if="user.company_id.logo" t-att-src="'data:image/png;base64,%s' % user.company_id.logo.decode('utf-8')"
-                         style="max-width: 150px; max-height: 80px;" alt="Company Logo"/>
-                </div>
+<!--                <div style="text-align: center; margin-bottom: 10px;">-->
+<!--                    <img t-if="user.company_id.logo" t-att-src="'data:image/png;base64,%s' % user.company_id.logo.decode('utf-8')"-->
+<!--                         style="max-width: 150px; max-height: 80px;" alt="Company Logo"/>-->
+<!--                </div>-->
 
                 <!-- Report Title -->
-               <h2>
+               <h5>
                     RAPPORT D'UTILISATION DES PIECES PAR
                     <t t-if="filter_type == 'warehouse'"> USINE</t>
                     <t t-elif="filter_type == 'partner'"> MACHINE</t>
                     <t t-else="">PRODUIT</t> POUR LA PERIODDE ALLANT DU <span t-esc="date_start"/> AU <span t-esc="date_end"/>
-                </h2>
+                </h5>
             </div>
 
 
                 <t t-foreach="data.items()" t-as="group">
-                     <center><h3 t-esc="group[0].name"/></center>
+                     <center><h4 t-esc="group[0].name"/></center>
                      <table class="table table-bordered" style="width: 80%; margin: 0 auto; border-collapse: collapse;">
                         <thead>
 

@@ -13,6 +13,14 @@
                            invisible="filter_type != 'warehouse'"
                           />
                     <field name="product_ids" widget="many2many_tags" invisible="filter_type != 'product'"/>
+
+                    <field name="tech_ids" widget="many2many_tags"
+                           invisible="filter_type != 'tech'"
+                          />
+                     <field name="user_ids" widget="many2many_tags"
+                           invisible="filter_type != 'user'"
+                          />
+
                     <field name="report_type"/>
                 </group>
                 <footer>

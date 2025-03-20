@@ -58,17 +58,30 @@ class StockPicking(models.Model):
 
     partner_id = fields.Many2one('res.partner', string="Machine", required=True)
     usine_id = fields.Many2one('stock.warehouse', string="Usine", required=True)
-    tech_id = fields.Many2one('res.users', string="Technicien(e)",required=True)
-    user_id = fields.Many2one('res.users', string='Opération Realisé par',   readonly=1, default=lambda self: self.env.user)
+    tech_id = fields.Many2one('hr.employee', string="Technicien(e)")
+    user_id = fields.Many2one('res.users', string='Maganisier(e)',   readonly=1, default=lambda self: self.env.user)
 
-    # def _compute_usine(self):
-    #     for record in self:
-    # compute = '_compute_usine'
-    #         record.usine_id = record.partner_id.usine_id if record.partner_id.usine_id else False
 
-    # @api.onchange('partner_id')
-    # def _onchange_partner_id_id(self):
-    #     for rec in self:
-    #         if rec.apprenant_id:
-    #             rec.usine_id = rec.partner_id.usine_id and rec.partner_id.usine_id.id
 
+class StockMoveLine(models.Model):
+    _inherit = "stock.move.line"
+
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Machine",
+        related="picking_id.partner_id",
+        store=True
+    )
+
+    usine_id = fields.Many2one('stock.warehouse',
+                               string="Usine",
+                               related="picking_id.usine_id",
+                               store=True)
+    tech_id = fields.Many2one('hr.employee', string="Technicien(e)",
+                              related="picking_id.tech_id",
+                              store=True
+                              )
+    user_id = fields.Many2one('res.users', string='Maganisier(e)',
+                              related="picking_id.user_id",
+                              store=True
+                              )
