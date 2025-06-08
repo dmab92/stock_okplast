@@ -30,7 +30,6 @@ class StockMoveReport(models.AbstractModel):
             domain.append(('user_id', 'in', wizard.user_ids.ids))
 
         moves = self.env['stock.move'].search(domain)
-
         report_data = {}
 
         for move in moves:

@@ -74,19 +74,21 @@
             <xpath expr="//field[@name='sale_ok']" position="before">
                 <group>
                     <group string="Informations sur la Piece">
-                        <field name="list_price"/>
+                        <field name="stock_threshold" />
+                         <field name="list_price"/>
                         <field name="categ_id"/>
                         <field name="machine_id"/>
-                        <field name="stock_threshold" />
-
+                        <field name="usine_id" />
                     </group>
                      <group string="Description">
                         <field name="diamter" />
                         <field name="power" />
                          <field name="tension"/>
                          <field name="intensit"/>
-                        <field name="other_dim" />
+                         <field name="other_dim" />
                          <field name="type_piece"/>
+                         <field name="position_id" />
+
                     </group>
                 </group>
             </xpath>
@@ -125,14 +127,13 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="usine_id"/>
             </xpath>
-
-
-            <xpath expr="//field[@name='origin']" position="after">
+            <xpath expr="//field[@name='origin']" position="replace">
+                <field name="is_outgoing" invisible="1"/>
                 <field name="user_id" readony="1"/>
-<!--                <field name="tech_id"  />-->
-                <field name="tech_id" required="1"/>
+                <field name="tech_id"
+                   required="is_outgoing"
+                   invisible="not is_outgoing" />
             </xpath>
-
         </field>
     </record>
 
@@ -196,14 +197,17 @@
                         <field name="name"/>
                         <field name="qty_available"/>
                         <field name="stock_threshold"/>
-                        <field name="diamter"/>
-                        <field name="type_piece"/>
-                        <field name="cat_piece"/>
                         <field name="intensit"/>
                         <field name="power"/>
+                        <field name="diamter"/>
+                        <field name="cat_piece"/>
                         <field name="other_dim"/>
                         <field name="tension"/>
                         <field name="categ_id"/>
+                        <field name="type_piece"/>
+                        <field name="position_id" />
+                        <field name="usine_id" />
+                        <field name="machine_id" />
                     </tree>
                 </xpath>
             </field>
@@ -229,6 +233,9 @@
                         <field name="other_dim"/>
                         <field name="tension"/>
                         <field name="categ_id"/>
+                        <field name="position_id" />
+                        <field name="usine_id" />
+                        <field name="machine_id" />
                     </tree>
                 </xpath>
             </field>
@@ -266,9 +273,27 @@
                 <field name="usine_id"/>
                 <field name="tech_id"/>
                 <field name="user_id"/>
-            </xpath>
+             </xpath>
         </field>
     </record>
+
+    <!-- Action to filter only companies -->
+    <record id="action_companies_only" model="ir.actions.act_window">
+        <field name="name">LISTE DES MACHINES</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_company', '=', True)]</field>
+        <field name="context">{'default_is_company': True}</field>
+    </record>
+
+    <!-- Menu item under Contacts -->
+    <menuitem
+        id="menu_companies_only"
+        name="LISTE DES MACHINES"
+        parent="contacts.menu_contacts"
+        action="action_companies_only"
+        sequence="15"
+    />
 
 
     </data>

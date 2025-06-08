@@ -27,13 +27,16 @@
                     RAPPORT D'UTILISATION DES PIECES PAR
                     <t t-if="filter_type == 'warehouse'"> USINE</t>
                     <t t-elif="filter_type == 'partner'"> MACHINE</t>
-                    <t t-else="">PRODUIT</t> POUR LA PERIODDE ALLANT DU <span t-esc="date_start"/> AU <span t-esc="date_end"/>
+                   <t t-elif="filter_type == 'tech'"> TECHNICIEN</t>
+                   <t t-elif="filter_type == 'user'"> MAGASINIERS</t>
+                    <t t-else="">PRODUIT</t> POUR LA PERIODDE ALLANT DU <span t-esc="date_start.strftime('%m/%d/%Y')"/> AU
+                   <span t-esc="date_end.strftime('%m/%d/%Y')"/>
                 </h5>
             </div>
 
 
-                <t t-foreach="data.items()" t-as="group">
-                     <center><h4 t-esc="group[0].name"/></center>
+                <t t-foreach="data.items()" t-as="group"> n
+                     <center><h6 t-esc="group[0].name"/></center>
                      <table class="table table-bordered" style="width: 80%; margin: 0 auto; border-collapse: collapse;">
                         <thead>
 
